@@ -3,7 +3,7 @@
 #include "log4arduino.h"    // NOLINT
 
 #ifndef LOG_MAX_STRING_LEN
-#define LOG_MAX_STRING_LEN 200
+#define LOG_MAX_STRING_LEN 2000
 #endif
 
 // workaround for frameworks which don't have PROGMEM support and don't
@@ -36,17 +36,6 @@ static int free_ram() {
 
 void log4arduino_init(Print* printer) { _log4arduino_target = printer; }
 
-// print the line header with time and free ram, e.g. "12345(1234): "
-void log4arduino_print_head() {
-    if (!_log4arduino_target) {
-        return;
-    }
-    char buf[LOG_MAX_STRING_LEN];
-    const auto fmt = F("%ld(%d): ");
-    sprintf_P(buf, (PGM_P)fmt, millis(), free_ram());
-    _log4arduino_target->print(buf);
-}
-
 // printf-like formatted logging.
 void log4arduino_debug_printf(const __FlashStringHelper* fmt, ...) {
     if (!_log4arduino_target) {
@@ -57,6 +46,5 @@ void log4arduino_debug_printf(const __FlashStringHelper* fmt, ...) {
     va_start(args, fmt);
     vsnprintf(buf, LOG_MAX_STRING_LEN, (PGM_P)fmt, args);
     va_end(args);
-    log4arduino_print_head();
     _log4arduino_target->println(buf);
 }
