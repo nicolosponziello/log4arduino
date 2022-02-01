@@ -3,7 +3,7 @@
 #include "log4arduino.h"    // NOLINT
 
 #ifndef LOG_MAX_STRING_LEN
-#define LOG_MAX_STRING_LEN 2000
+#define LOG_MAX_STRING_LEN 5000
 #endif
 
 // workaround for frameworks which don't have PROGMEM support and don't
