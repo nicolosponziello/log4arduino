@@ -16,7 +16,6 @@ extern void log4arduino_debug_printf(const __FlashStringHelper* fmt, ...);
 
 #define LOGS(s)                          \
     if (_log4arduino_target) {           \
-        log4arduino_print_head();        \
         _log4arduino_target->println(s); \
     }
 #define LOG(fmt, ...) log4arduino_debug_printf(F(fmt), ##__VA_ARGS__)
